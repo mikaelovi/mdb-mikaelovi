@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,12 +19,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "subject_teacher")
 @ToString
-public class Teacher extends AbstractEntity {
+@NoArgsConstructor
+public class Teacher extends BaseEntity {
 
     @ManyToOne
+    @NonNull
     private Subject subject;
 
     @ManyToOne
+    @NonNull
     private Group group;
 
     @Override

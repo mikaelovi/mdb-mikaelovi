@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,15 +19,19 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
+@NoArgsConstructor
 @RequiredArgsConstructor
-public class Student extends AbstractEntity{
+public class Student extends BaseEntity {
 
+    @NonNull
     @Column
     private String firstName;
 
+    @NonNull
     @Column
     private String lastName;
 
+    @NonNull
     @ManyToOne
     private Group group;
 

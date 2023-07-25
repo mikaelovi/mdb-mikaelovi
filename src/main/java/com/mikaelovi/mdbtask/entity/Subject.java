@@ -4,6 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -15,9 +18,12 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class Subject extends AbstractEntity{
+@RequiredArgsConstructor
+@NoArgsConstructor
+public class Subject extends BaseEntity {
 
     @Column
+    @NonNull
     private String title;
 
     @Override

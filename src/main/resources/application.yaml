@@ -6,3 +6,20 @@ spring:
     password: sa
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+
+api:
+  auth:
+    username: admin-user
+    password: admin-pass
+
+token:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+server:
+  servlet:
+    context-path: /api
+logging:
+  level:
+    org.springframework.security: TRACE

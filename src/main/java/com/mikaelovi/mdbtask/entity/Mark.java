@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -17,17 +20,23 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class Mark extends AbstractEntity {
+@NoArgsConstructor
+@RequiredArgsConstructor
+public class Mark extends BaseEntity {
 
+    @NonNull
     @ManyToOne
     private Student student;
 
+    @NonNull
     @ManyToOne
     private Subject subject;
 
+    @NonNull
     @Column
     private LocalDateTime date;
 
+    @NonNull
     @Column(name = "mark")
     private Integer score;
 

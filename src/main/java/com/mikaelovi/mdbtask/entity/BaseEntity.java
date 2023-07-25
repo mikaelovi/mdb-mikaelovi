@@ -21,7 +21,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public abstract class AbstractEntity {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id_generator", sequenceName = "id_seq")
@@ -37,7 +37,7 @@ public abstract class AbstractEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AbstractEntity that = (AbstractEntity) o;
+        BaseEntity that = (BaseEntity) o;
         return id != null && Objects.equals(id, that.id);
     }
 
