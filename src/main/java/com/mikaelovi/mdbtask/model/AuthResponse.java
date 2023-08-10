@@ -1,4 +1,6 @@
 package com.mikaelovi.mdbtask.model;
 
-public record AuthResponse(String token) {
+import java.time.LocalDateTime;
+
+public record AuthResponse(String token, LocalDateTime expiresAt) {
 }

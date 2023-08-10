@@ -2,6 +2,8 @@ package com.mikaelovi.mdbtask.controller;
 
 import com.mikaelovi.mdbtask.dto.TeacherDto;
 import com.mikaelovi.mdbtask.service.TeacherService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/teacher")
+@SecurityRequirement(name = "mdb-auth")
+@RequiredArgsConstructor
 public class TeacherController {
     private final TeacherService teacherService;
 
-    public TeacherController(TeacherService teacherService) {
-        this.teacherService = teacherService;
-    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
@@ -57,7 +58,7 @@ public class TeacherController {
 
     @GetMapping("count/{teacherId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Integer> countStudentsForTeacher(@PathVariable Integer teacherId) {
+    public ResponseEntity<Integer> getStudentCountForTeacher(@PathVariable Integer teacherId) {
         return ResponseEntity.ok(teacherService.countStudents(teacherId));
     }
 }

@@ -22,8 +22,8 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Subject extends BaseEntity {
 
-    @Column
     @NonNull
+    @Column(unique = true)
     private String title;
 
     @Override

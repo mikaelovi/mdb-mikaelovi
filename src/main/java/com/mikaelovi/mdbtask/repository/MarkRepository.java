@@ -11,5 +11,5 @@ import java.util.List;
 public interface MarkRepository extends BaseRepository<Mark> {
     List<Mark> findMarksByStudent(Student student);
 
-    List<Mark> findMarksBySubject(Subject subject);
+    List<Mark> findMarksBySubjectAndStudent(Subject subject, Student student);
 }

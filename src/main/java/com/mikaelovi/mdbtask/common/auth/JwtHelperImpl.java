@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -28,7 +30,7 @@ public class JwtHelperImpl implements JwtHelper {
     public String generateTokenForUser(UserDetails userDetails) {
         return Jwts.builder().setClaims(new HashMap<>()).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
@@ -36,6 +38,14 @@ public class JwtHelperImpl implements JwtHelper {
     public boolean authenticateByToken(String token, UserDetails userDetails) {
         final String userName = extractUserNameFromToken(token);
         return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    }
+
+    @Override
+    public LocalDateTime getTokenExpiration(String token) {
+        return extractExpiration(token)
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {

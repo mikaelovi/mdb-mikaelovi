@@ -40,7 +40,7 @@ public class StudentService extends BaseService<Student, StudentDto> {
 
     @Override
     public StudentDto convertToDto(Student entity) {
-        return new StudentDto(entity.getFirstName(), entity.getLastName(), entity.getGroup().getId());
+        return new StudentDto(entity.getId(), entity.getFirstName(), entity.getLastName(), entity.getGroup().getId());
     }
 
     public List<Student> findAllByGroup(Group group) {

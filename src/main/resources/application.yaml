@@ -7,12 +7,17 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+  mvc:
+    dispatch-options-request: true
+  h2:
+    console:
+      enabled: true
 
 api:
   auth:
-    username: admin-user
-    password: admin-pass
+    username: admin
+    password: $2a$10$2cC3rWJ49PrjbnzRfN.6.uCDept9HNm8R.lFD9nLrRAYdLafRec8u
 
 token:
   signing:
@@ -22,4 +27,11 @@ server:
     context-path: /api
 logging:
   level:
-    org.springframework.security: TRACE
+      org.springframework.security: info
+
+springdoc:
+  api-docs:
+    path: /documentation
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true

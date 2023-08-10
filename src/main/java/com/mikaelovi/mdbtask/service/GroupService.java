@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GroupService extends BaseService<Group, GroupDto> {
-    private final GroupRepository groupRepository;
 
     public GroupService(GroupRepository groupRepository) {
         super(groupRepository);
-        this.groupRepository = groupRepository;
     }
 
     @Override
@@ -27,6 +25,6 @@ public class GroupService extends BaseService<Group, GroupDto> {
 
     @Override
     public GroupDto convertToDto(Group entity) {
-        return new GroupDto(entity.getName());
+        return new GroupDto(entity.getId(), entity.getName());
     }
 }

@@ -1,4 +1,4 @@
 package com.mikaelovi.mdbtask.dto;
 
-public record GroupDto(String name) implements BaseDto {
+public record GroupDto(Integer id, String name) implements BaseDto{
 }

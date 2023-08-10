@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SubjectService extends BaseService<Subject, SubjectDto> {
-    private final SubjectRepository subjectRepository;
 
     public SubjectService(SubjectRepository subjectRepository) {
         super(subjectRepository);
-        this.subjectRepository = subjectRepository;
     }
 
     @Override
@@ -27,6 +25,6 @@ public class SubjectService extends BaseService<Subject, SubjectDto> {
 
     @Override
     public SubjectDto convertToDto(Subject entity) {
-        return new SubjectDto(entity.getTitle());
+        return new SubjectDto(entity.getId(), entity.getTitle());
     }
 }

@@ -13,7 +13,7 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto> {
 
     private final BaseRepository<E> repository;
 
-    protected BaseService(BaseRepository repository) {
+    protected BaseService(BaseRepository<E> repository) {
         this.repository = repository;
     }
 
@@ -34,12 +34,19 @@ public abstract class BaseService<E extends BaseEntity, D extends BaseDto> {
         return convertToPagedDto(allEntitiesPage);
     }
 
-    E get(Integer id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+    public E get(Integer id) {
+        return repository.findById(id).orElseThrow(() -> entityNotFoundExceptionInstance(String.valueOf(id)));
+    }
+
+    private EntityNotFoundException entityNotFoundExceptionInstance(String message) {
+        final var simpleClassName = this.getClass().getSimpleName();
+        final var entityName = simpleClassName.substring(0, simpleClassName.indexOf("Service"));
+
+        return new EntityNotFoundException(entityName, message);
     }
 
     public D findOne(Integer id) {
-        final var foundEntity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+        final var foundEntity = repository.findById(id).orElseThrow(() -> entityNotFoundExceptionInstance(String.valueOf(id)));
         return convertToDto(foundEntity);
     }
 

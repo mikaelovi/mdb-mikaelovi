@@ -28,7 +28,7 @@ public class Student extends BaseEntity {
     private String firstName;
 
     @NonNull
-    @Column
+    @Column(unique = true)
     private String lastName;
 
     @NonNull

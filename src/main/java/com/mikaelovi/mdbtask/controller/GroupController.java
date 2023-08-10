@@ -2,6 +2,7 @@ package com.mikaelovi.mdbtask.controller;
 
 import com.mikaelovi.mdbtask.dto.GroupDto;
 import com.mikaelovi.mdbtask.service.GroupService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/group")
+@SecurityRequirement(name = "mdb-auth")
 public class GroupController {
     private final GroupService groupService;
 

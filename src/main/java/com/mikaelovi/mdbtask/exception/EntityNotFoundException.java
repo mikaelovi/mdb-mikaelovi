@@ -1,8 +1,8 @@
 package com.mikaelovi.mdbtask.exception;
 
-public class EntityNotFoundException extends BadRequestException{
+public class EntityNotFoundException extends NotFoundException {
 
-    public EntityNotFoundException(String param) {
-        super("not-found", new Object[]{param} );
+    public EntityNotFoundException(String... param) {
+        super("not-found", param );
     }
 }

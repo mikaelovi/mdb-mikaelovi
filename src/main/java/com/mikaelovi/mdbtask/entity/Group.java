@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Group extends BaseEntity {
 
     @NonNull
-    @Column
+    @Column(unique = true)
     private String name;
 
     @Override

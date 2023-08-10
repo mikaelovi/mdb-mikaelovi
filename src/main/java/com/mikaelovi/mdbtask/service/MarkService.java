@@ -40,7 +40,7 @@ public class MarkService extends BaseService<Mark, MarkDto> {
 
     @Override
     public MarkDto convertToDto(Mark entity) {
-        return new MarkDto(entity.getDate(), entity.getScore(), entity.getStudent().getId(), entity.getSubject().getId());
+        return new MarkDto(entity.getId(), entity.getDate(), entity.getScore(), entity.getStudent().getId(), entity.getSubject().getId());
     }
 
     public List<MarkDto> getMarksForStudent(Integer studentId) {
@@ -51,18 +51,20 @@ public class MarkService extends BaseService<Mark, MarkDto> {
         return markList.stream().map(this::convertToDto).toList();
     }
 
-    public List<MarkDto> getMarksForSubject(Integer subjectId) {
+    private MarkDto getMarksForSubject(Integer subjectId, Integer studentId) {
         var subject = subjectService.get(subjectId);
+        var student = studentService.get(studentId);
 
-        var markList = markRepository.findMarksBySubject(subject);
+        var markList = markRepository.findMarksBySubjectAndStudent(subject, student);
 
-        return markList.stream().map(this::convertToDto).toList();
+        return markList.stream().map(this::convertToDto).findFirst().orElse(null);
     }
 
-    public Map<Integer, List<MarkDto>> getStudentMarksForAllSubjects(Integer studentId) {
+    public List<Map<String, MarkDto>> getStudentMarksForAllSubjects(Integer studentId) {
 
         var markList = getMarksForStudent(studentId);
 
-        return markList.stream().collect(Collectors.toMap(MarkDto::subjectId, s -> getMarksForSubject(s.subjectId())));
+        return List.of(markList.stream().collect(Collectors.toMap(markDto -> subjectService.get(markDto.subjectId()).getTitle(),
+                markDto -> getMarksForSubject(markDto.subjectId(), studentId))));
     }
 }

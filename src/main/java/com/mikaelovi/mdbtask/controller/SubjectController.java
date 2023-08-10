@@ -2,6 +2,7 @@ package com.mikaelovi.mdbtask.controller;
 
 import com.mikaelovi.mdbtask.dto.SubjectDto;
 import com.mikaelovi.mdbtask.service.SubjectService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/subject")
+@SecurityRequirement(name = "mdb-auth")
 public class SubjectController {
     private final SubjectService subjectService;
 

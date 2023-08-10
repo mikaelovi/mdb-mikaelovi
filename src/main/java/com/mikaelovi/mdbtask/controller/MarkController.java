@@ -2,6 +2,8 @@ package com.mikaelovi.mdbtask.controller;
 
 import com.mikaelovi.mdbtask.dto.MarkDto;
 import com.mikaelovi.mdbtask.service.MarkService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/mark")
+@SecurityRequirement(name = "mdb-auth")
+@RequiredArgsConstructor
 public class MarkController {
-
     private final MarkService markService;
 
-    public MarkController(MarkService markService) {
-        this.markService = markService;
-    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
@@ -67,7 +67,7 @@ public class MarkController {
 
     @GetMapping("/all-subjects/{studentId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Map<Integer, List<MarkDto>>> getMarksForAllSubjects(@PathVariable Integer studentId) {
+    public ResponseEntity<List<Map<String, MarkDto>>> getStudentMarksForAllSubjects(@PathVariable Integer studentId) {
         return ResponseEntity.ok(markService.getStudentMarksForAllSubjects(studentId));
     }
 }

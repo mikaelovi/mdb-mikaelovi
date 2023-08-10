@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TeacherService extends BaseService<Teacher, TeacherDto> {
-    private final TeacherRepository teacherRepository;
     private final GroupService groupService;
     private final SubjectService subjectService;
     private final StudentService studentService;
 
     public TeacherService(TeacherRepository teacherRepository, GroupService groupService, SubjectService subjectService, StudentService studentService) {
         super(teacherRepository);
-        this.teacherRepository = teacherRepository;
         this.groupService = groupService;
         this.subjectService = subjectService;
         this.studentService = studentService;
@@ -40,7 +38,7 @@ public class TeacherService extends BaseService<Teacher, TeacherDto> {
 
     @Override
     public TeacherDto convertToDto(Teacher entity) {
-        return new TeacherDto(entity.getSubject().getId(), entity.getGroup().getId());
+        return new TeacherDto(entity.getId(), entity.getSubject().getId(), entity.getGroup().getId());
     }
 
     public Integer countStudents(Integer teacherId) {
